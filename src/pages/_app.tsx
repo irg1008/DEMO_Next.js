@@ -1,23 +1,27 @@
-import React from "react";
 import Head from "next/head";
-import Theme from "styles/theme";
+import { ThemeStoreProvider } from "contexts/ThemeStore";
+import { LayoutStoreProvider } from "contexts/LayoutStore";
+import Layout from "components/templates/Layout";
 
-const App: React.FC<{
+type AppProps = {
   Component: React.ComponentType;
   pageProps: any;
-}> = ({ Component, pageProps }) => (
+};
+
+const App = ({ Component, pageProps }: AppProps) => (
   <>
     <Head>
-      <title>Next.js App</title>
-      <link rel="icon" href="/favicon.ico" />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&amp;display=swap"
-        rel="stylesheet"
+      <title>{"Silk&Rock - Workwear - Uniformes Laborales"}</title>
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, user-scalable=no"
       />
     </Head>
-    <Theme>
-      <Component {...pageProps} />
-    </Theme>
+    <ThemeStoreProvider>
+      <LayoutStoreProvider>
+        <Component {...pageProps} />
+      </LayoutStoreProvider>
+    </ThemeStoreProvider>
   </>
 );
 

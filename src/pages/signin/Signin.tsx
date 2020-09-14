@@ -1,14 +1,11 @@
-import React from "react";
 import { InjectedFormikProps, withFormik } from "formik";
 import * as Yup from "yup";
 
 import Head from "next/head";
 
 import Field from "components/molecules/Field";
-import Button from "components/atoms/Button";
+import ThemedButton from "components/atoms/ThemedButton";
 import Form from "components/organisms/Form";
-
-import Layout from "components/templates/Layout";
 
 interface FormValues {
   email: string;
@@ -42,7 +39,7 @@ const InnerForm: React.SFC<InjectedFormikProps<FormProps, FormValues>> = (
   <Form onSubmit={props.handleSubmit}>
     <Field type="email" name="email" label="Email" />
     <Field type="password" name="password" label="Password" />
-    <Button disabled={props.isSubmitting} text="Submit" type="submit" />
+    <ThemedButton disabled={props.isSubmitting} text="Submit" type="submit" />
   </Form>
 );
 
@@ -63,14 +60,14 @@ const SigninForm = withFormik<FormProps, FormValues>({
     handleSubmit(values, setSubmitting),
 })(InnerForm);
 
-const Signin: React.FC = () => (
-  <Layout>
+const Signin = () => (
+  <>
     <Head>
-      <title>Sign In</title>
+    <title>{"Silk&Rock - Sign In"}</title>
     </Head>
     <h1>Sign in</h1>
     <SigninForm />
-  </Layout>
+  </>
 );
 
 export default Signin;

@@ -1,29 +1,34 @@
 import styled from "styled-components";
-import colors from "styles/colors";
 import constant from "styles/constants";
+import shadows from "styles/shadows";
 
 const NavWrapper = styled.nav`
-  height: ${constant.navHeight};
+  margin-bottom: ${constant.navHeight};
 `;
 
 const Nav = styled.div`
   width: 100%;
   height: ${constant.navHeight};
   position: fixed;
-  color: ${colors.white};
-  background-color: ${(props) => props.theme.colors.primary};
-  padding: 10px;
+  color: ${(props) => props.theme.colors.dark};
+  background-color: ${(props) => props.theme.colors.lightOpacity};
+  padding: 10px 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  opacity: 0.8;
-  -webkit-backdrop-filter: blur(0.5rem);
   backdrop-filter: blur(0.5rem);
+  ${shadows.shadowDown};
+`;
+
+const NavLogo = styled.div`
+  height: 24px;
+  cursor: pointer;
 `;
 
 const Styled = {
   Nav,
   NavWrapper,
+  NavLogo,
 };
 
 export default Styled;

@@ -1,4 +1,3 @@
-import React from "react";
 import Styled from "./Error.styles";
 
 type ErrorProps = {
@@ -6,7 +5,7 @@ type ErrorProps = {
   error?: string;
 };
 
-const Error: React.FC<ErrorProps> = ({ displayError, error }) =>
+const Error = ({ displayError, error }: ErrorProps) =>
   displayError ? <Styled.Error>{error}</Styled.Error> : null;
 
 export default Error;

@@ -1,18 +1,19 @@
 import React from "react";
 import Nav from "components/organisms/Nav";
+import Footer from "components/organisms/Footer";
 import Styled from "./Layout.styles";
+import { useThemeStore } from "contexts/ThemeStore";
 
 type LayoutProps = {
-  children: React.ReactNode;
-  hideNav?: boolean;
-  hideFooter?: boolean;
+  hidenNavbar: boolean;
+  hidenFooter: boolean;
 };
 
-const Layout: React.FC<LayoutProps> = ({ children, hideNav, hideFooter }) => (
+const Layout: React.FC<LayoutProps> = ({ children, hidenNavbar, hidenFooter }) => (
   <Styled.Layout>
-    {!hideNav && <Nav />}
+    {!hidenNavbar && <Nav />}
     <Styled.Content>{children}</Styled.Content>
-    {!hideFooter && <footer>Footer</footer>}
+    {!hidenFooter && <Footer />}
   </Styled.Layout>
 );
 

@@ -1,4 +1,3 @@
-import React from "react";
 import Styled from "./Input.styles";
 
 type InputProps = {
@@ -7,7 +6,7 @@ type InputProps = {
   name: string;
 };
 
-const Input: React.FC<InputProps> = ({ displayError, type, name, ...props }) => (
+const Input = ({ displayError, type, name, ...props }: InputProps) => (
   <Styled.Input {...{ ...props, type, name, displayError }} autoComplete="on" />
 );
 

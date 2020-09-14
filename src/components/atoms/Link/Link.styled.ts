@@ -1,13 +1,34 @@
 import styled, { css } from "styled-components";
 
-const Link = styled.span<{ active: boolean }>`
-  &:hover {
-    text-decoration: underline;
+const Link = styled.div<{ active: boolean; color?: string }>`
+  color: ${({ color, theme }) => color || theme.colors.dark};
+  font-weight: 500;
+  &:after {
+    ${({ active }) =>
+      active
+        ? css`
+            width: 100%;
+          `
+        : css`
+            width: 0;
+            opacity: 0;
+          `}
+    content: "";
+    display: block;
+    margin: auto;
+    margin-top: 5px;
+    border-bottom: 1px solid;
+    border-color: ${({ color, theme }) => color || theme.colors.dark};
+    border-radius: 5px;
+    transition: width 0.4s ease, opacity 0.4s ease;
   }
-  ${(props) =>
-    props.active &&
+  ${({ active }) =>
+    !active &&
     css`
-      text-decoration: underline;
+      &:hover:after {
+        width: 50%;
+        opacity: 1;
+      }
     `}
 `;
 

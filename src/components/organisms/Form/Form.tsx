@@ -3,7 +3,6 @@ import Styled from "./Form.styles";
 
 type FormProps = {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  children: React.ReactNode;
 };
 
 const Form: React.FC<FormProps> = ({ onSubmit, children }) => (

@@ -1,6 +1,12 @@
-import React from "react";
-import Layout from "components/templates/Layout";
+import Head from "next/head";
 
-const Index: React.FC = () => <Layout>Index</Layout>;
+const Index = () => (
+  <>
+    <Head>
+      <title>{"Silk&Rock - Home"}</title>
+    </Head>
+    Index
+  </>
+);
 
 export default Index;

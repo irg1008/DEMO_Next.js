@@ -1,12 +1,12 @@
-import React from "react";
+import Styled from "./Label.styles";
 
 type LabelProps = {
   name: string;
   label: string;
 };
 
-const Label: React.FC<LabelProps> = ({ name, label }) => (
-  <label htmlFor={name}>{label}</label>
+const Label = ({ name, label }: LabelProps) => (
+  <Styled.Label htmlFor={name}>{label}</Styled.Label>
 );
 
 export default Label;

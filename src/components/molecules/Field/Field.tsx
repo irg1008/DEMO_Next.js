@@ -1,4 +1,3 @@
-import React from "react";
 import { useField } from "formik";
 
 import Input from "components/atoms/Input";
@@ -13,7 +12,7 @@ type CustomInputProps = {
   name: string;
 };
 
-const Field: React.FC<CustomInputProps> = ({ label, type, name }) => {
+const Field = ({ label, type, name }: CustomInputProps) => {
   const [field, { error, touched }] = useField({ name, type });
   const displayError = !!error && touched;
 
