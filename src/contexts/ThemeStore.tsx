@@ -57,7 +57,7 @@ const ThemeStoreProvider: React.FC = ({ children }) => {
     <ThemeStoreContext.Provider value={{ toggleTheme, themeLoaded }}>
       <ThemeProvider {...{ theme }}>
         <Global />
-        {children}
+        {themeLoaded && children}
       </ThemeProvider>
     </ThemeStoreContext.Provider>
   );
