@@ -14,7 +14,7 @@ const App = ({ Component, pageProps }: AppProps) => (
       <title>{"Silk&Rock - Workwear - Uniformes Laborales"}</title>
       <meta
         name="viewport"
-        content="width=device-width, initial-scale=1, user-scalable=no"
+        content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, shrink-to-fit=no"
       />
     </Head>
     <ThemeStoreProvider>

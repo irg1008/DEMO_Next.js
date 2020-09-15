@@ -15,7 +15,7 @@ export default class MyDocument extends Document {
         });
 
       const initialProps = await Document.getInitialProps(ctx);
-      
+
       return {
         ...initialProps,
         styles: (
@@ -40,10 +40,6 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           />
           <meta charSet="utf-8" />
-          <meta
-            name="viewport"
-            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
-          />
           <meta name="theme-color" content={defaultTheme.colors.primary} />
         </Head>
         <body>

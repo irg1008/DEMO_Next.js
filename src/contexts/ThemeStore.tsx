@@ -23,8 +23,9 @@ const ThemeStoreProvider: React.FC = ({ children }) => {
   const [themeLoaded, setThemeLoaded] = useState(initialContext.themeLoaded);
 
   useEffect(() => {
+    const origin = window.location.origin;
     const fetchTheme = async () => {
-      const response = await axios.get("http://localhost:3000/api/theme");
+      const response = await axios.get(`${origin}/api/theme`);
       const respondedTheme = response.data.theme;
 
       // Only set the api theme if ever changed. If not => Set to default.
@@ -40,9 +41,10 @@ const ThemeStoreProvider: React.FC = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    const origin = window.location.origin;
     // On theme change => API will store data.
     const updateTheme = async () => {
-      await axios.post("http://localhost:3000/api/theme", {
+      await axios.post(`${origin}/api/theme`, {
         theme,
       });
     };
