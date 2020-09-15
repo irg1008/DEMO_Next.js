@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-const Index = () => (
+const Main = () => (
   <>
     <Head>
       <title>{"Silk&Rock - Home"}</title>
@@ -9,4 +9,4 @@ const Index = () => (
   </>
 );
 
-export default Index;
+export default Main;
