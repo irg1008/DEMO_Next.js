@@ -1,3 +1,3 @@
-import Index from "components/pages/Index";
+import Home from "components/pages/Home";
 
-export default Index;
+export default Home;

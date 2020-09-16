@@ -2,4 +2,5 @@
 
 // TODO: Create switch.
 // TODO: Use a loading screen.
-// TODO: Arreglar styled-component flick.
+// TODO: Set theme for every user.
+// TODO: Set users with mongodb and next.
