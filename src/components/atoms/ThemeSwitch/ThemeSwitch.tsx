@@ -16,10 +16,15 @@ const ThemeSwitch = () => {
 
   const [animate, setAnimate] = useState(false);
 
+  const handleClick = () => {
+    toggleTheme();
+    setAnimate(true);
+  };
+
   return (
     <Styled.Wrapper
       {...{ isDark, animate }}
-      onClick={() => setAnimate(true)}
+      onClick={handleClick}
       onAnimationEnd={() => setAnimate(false)}
     >
       <IconButton
@@ -30,7 +35,6 @@ const ThemeSwitch = () => {
           fontSize: "16px",
         }}
         color="inherit"
-        onClick={toggleTheme}
       >
         {isDark ? (
           <LightIcon fontSize="inherit" />
