@@ -3,15 +3,19 @@ import shadows from "styles/shadows";
 
 const FormWrapper = styled.div`
   display: flex;
+  justify-content: center;
+`;
+
+const FormInnerWrapper = styled.div`
+  width: 400px;
+  display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  width: auto;
-  padding: 30px 0;
+  justify-content: center;
+  align-items: stretch;
+  margin-bottom: 30px;
 `;
 
 const Form = styled.form`
-  width: 400px;
   height: auto;
   background-color: ${({ theme }) => theme.colors.light};
   display: flex;
@@ -23,9 +27,31 @@ const Form = styled.form`
   ${shadows.depthShadow};
 `;
 
+const FormTitle = styled.h1`
+  margin-bottom: 10px;
+  &:after {
+    content: "";
+    margin: 10px auto;
+    display: block;
+    width: 20%;
+    border: 1px solid ${({ theme }) => theme.colors.dark};
+    border-radius: 10px;
+  }
+`;
+
+const ExtraContent = styled.div`
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+`;
+
 const Styled = {
   FormWrapper,
+  FormInnerWrapper,
   Form,
+  FormTitle,
+  ExtraContent,
 };
 
 export default Styled;

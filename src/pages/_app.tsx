@@ -1,7 +1,6 @@
 import Head from "next/head";
 import { ThemeStoreProvider } from "contexts/ThemeStore";
 import { LayoutStoreProvider } from "contexts/LayoutStore";
-import Layout from "components/templates/Layout";
 
 type AppProps = {
   Component: React.ComponentType;

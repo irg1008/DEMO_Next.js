@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Logo = styled.div<{ color?: string }>`
+const Logo = styled.span<{ color?: string }>`
   display: flex;
   justify-content: center;
   align-content: center;

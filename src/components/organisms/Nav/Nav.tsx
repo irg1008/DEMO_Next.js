@@ -5,6 +5,7 @@ import { useThemeStore } from "contexts/ThemeStore";
 
 import NavLinks from "components/molecules/NavLinks";
 import Logo from "components/atoms/Logo";
+import ThemeSwitch from "components/atoms/ThemeSwitch";
 
 const Nav = () => {
   const { toggleTheme } = useThemeStore();
@@ -12,13 +13,15 @@ const Nav = () => {
   return (
     <Styled.NavWrapper>
       <Styled.Nav>
-        <Link href="/">
-          <Styled.NavLogo>
-            <Logo />
-          </Styled.NavLogo>
-        </Link>
-        <button onClick={toggleTheme}>Change Theme</button>
-        <NavLinks />
+        <Styled.NavMain>
+          <Link href="/">
+            <Styled.NavLogo>
+              <Logo />
+            </Styled.NavLogo>
+          </Link>
+          <NavLinks />
+        </Styled.NavMain>
+        <ThemeSwitch />
       </Styled.Nav>
     </Styled.NavWrapper>
   );

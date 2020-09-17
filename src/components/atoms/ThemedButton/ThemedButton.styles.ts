@@ -5,13 +5,16 @@ const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   overflow: hidden;
+  position: relative;
 `;
 
 const Button = styled.button`
+  min-width: 150px;
+  min-height: 30px;
   color: ${({ theme }) => theme.colors.light};
   background-color: ${({ theme }) => theme.colors.primary};
   &:hover {
-    background-color: ${({ theme }) => theme.colors.primaryLight};
+    background: ${({ theme }) => theme.colors.primaryLight};
   }
 `;
 

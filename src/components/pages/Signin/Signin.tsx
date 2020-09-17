@@ -6,6 +6,7 @@ import Head from "next/head";
 import Field from "components/molecules/Field";
 import ThemedButton from "components/atoms/ThemedButton";
 import Form from "components/organisms/Form";
+import GoogleButton from "components/atoms/GoogleButton";
 
 interface FormValues {
   email: string;
@@ -36,7 +37,11 @@ interface FormProps {
 const InnerForm: React.SFC<InjectedFormikProps<FormProps, FormValues>> = (
   props
 ) => (
-  <Form onSubmit={props.handleSubmit}>
+  <Form
+    onSubmit={props.handleSubmit}
+    title="sign in"
+    extraContent={<GoogleButton text="sign in with google" />}
+  >
     <Field type="email" name="email" label="Email" />
     <Field type="password" name="password" label="Password" />
     <ThemedButton disabled={props.isSubmitting} text="Submit" type="submit" />
@@ -63,9 +68,8 @@ const SigninForm = withFormik<FormProps, FormValues>({
 const Signin = () => (
   <>
     <Head>
-    <title>{"Silk&Rock - Sign In"}</title>
+      <title>{"Silk&Rock - Sign In"}</title>
     </Head>
-    <h1>Sign in</h1>
     <SigninForm />
   </>
 );

@@ -7,12 +7,13 @@ const Global = createGlobalStyle`
 		box-sizing: border-box;
 		text-decoration: none;
 		list-style: none;
-		color: ${({ theme }) => theme.colors.dark};
 		transition: background-color 0.1s ease-out;
 	}
 
 	body {
 		margin: 0;
+		color: ${({ theme }) => theme.colors.dark};
+		background-color: ${({ theme }) => theme.colors.light};
 		font-family: "Quicksand", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
 				"Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 		-webkit-font-smoothing: antialiased;
@@ -25,13 +26,13 @@ const Global = createGlobalStyle`
 	}
 
 	input {
+		font-family: inherit;
 		height: 3em;
 		outline: none;
 		border-radius: 0.4em;
 		background-color: ${({ theme }) => theme.colors.grey1};
 		border: 2px solid rgb(182, 182, 182);
 		padding: 0 8px;
-		margin: 0.4em 0;
 		box-shadow: inset 0 1px 2px rgba(27, 31, 35, 0.075);
 		&:-webkit-autofill, :-webkit-autofill:focus, :-webkit-autofill:hover {
 			-webkit-text-fill-color: ${({ theme }) => theme.colors.dark};
@@ -46,8 +47,6 @@ const Global = createGlobalStyle`
 
 	button {
 		width: auto;
-		min-width: 150px;
-		min-height: 30px;
 		padding: 10px;
 		text-transform: uppercase;
 		border: none;
@@ -64,19 +63,28 @@ const Global = createGlobalStyle`
 				background-color: ${({ theme }) => theme.colors.grey3};
 				transition: 0.2s background-color;
 		}
-		&:disabled {
-				background-color: ${({ theme }) => theme.colors.grey4};
+		&:disabled, &:disabled:hover {
+				background-color: ${({ theme }) => theme.colors.grey1};
 				cursor: default;
+				color: ${({ theme }) => theme.colors.darkOpacity};
 		}
 	}
 
 	a {
 		color: inherit;
+		&:hover {
+			color: inherit;
+		}
+	}
+
+	p {
+		text-align: center;
+		color: inherit;
 	}
 
 	h1, h2, h3, h4, h5, h6 {
-		display: inline-block;
 		text-align: center;
+		color: inherit;
 	}
 
 	h1 {
@@ -88,7 +96,7 @@ const Global = createGlobalStyle`
 
 
 	::selection {
-		background-color: ${(props) => props.theme.colors.darkOpacity};
+		background-color: ${(props) => props.theme.colors.primary};
 		color: ${(props) => props.theme.colors.light};
 	}
 `;

@@ -6,7 +6,7 @@ const themes: Themes = {
     colors: {
       primary: "#1fff88",
       primaryLight: "#75ffb6",
-      secondary: "#ff711f",
+      secondary: "#f7f7f7",
       secondaryLight: "#ff9659",
       light: "#2b2b2b",
       lightOpacity: "rgba(43, 43, 43, 0.5)",
@@ -25,7 +25,7 @@ const themes: Themes = {
       primaryLight: "#ff9659",
       secondary: "#1fff88",
       secondaryLight: "#75ffb6",
-      light: "#fafafa",
+      light: "#f7f7f7",
       lightOpacity: "rgba(250, 250, 250, 0.5)",
       dark: "#2b2b2b",
       darkOpacity: "rgba(43, 43, 43, 0.5)",
