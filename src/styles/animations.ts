@@ -11,6 +11,17 @@ const fallDown = keyframes`
     }
 `;
 
+const fallFarRight = keyframes`
+    0% {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateZ(0);
+        opacity: 1;
+    }
+`;
+
 const flipY = keyframes`
     0% {
         transform: rotateY(0);
@@ -46,6 +57,7 @@ const animations = {
   fallDown,
   shake,
   flipY,
+  fallFarRight,
   scaleDown,
 };
 

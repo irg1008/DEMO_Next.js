@@ -6,7 +6,7 @@ const Wrapper = styled.div<{ isDark: boolean; animate: boolean }>`
   ${({ animate, isDark }) =>
     animate &&
     css`
-      animation: ${animations.scaleDown} 0.3s ease-in-out ${isDark && "reverse"};
+      animation: ${animations.flipY} 0.3s linear ${isDark && "reverse"};
     `}
 `;
 
