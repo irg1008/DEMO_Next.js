@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import shadows from "styles/shadows";
+import media from "styles/media";
 
 const FormWrapper = styled.div`
   display: flex;
@@ -13,6 +14,9 @@ const FormInnerWrapper = styled.div`
   justify-content: center;
   align-items: stretch;
   margin-bottom: 30px;
+  @media screen and (max-width: ${media.mediumSmall}) {
+    width: 100%;
+  }
 `;
 
 const Form = styled.form`

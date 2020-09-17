@@ -7,7 +7,7 @@ const Global = createGlobalStyle`
 		box-sizing: border-box;
 		text-decoration: none;
 		list-style: none;
-		transition: background-color 0.1s ease-out;
+		transition: background-color 0.1s cubic-bezier(.88,1.11,.66,.29);
 	}
 
 	body {

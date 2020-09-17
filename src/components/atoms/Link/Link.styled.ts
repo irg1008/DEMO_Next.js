@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 const Link = styled.div<{ active: boolean; color?: string }>`
   color: ${({ color, theme }) => color || theme.colors.dark};
   font-weight: 500;
+  text-align: center;
   &:after {
     ${({ active }) =>
       active

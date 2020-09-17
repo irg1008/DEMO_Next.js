@@ -8,14 +8,20 @@ const InputWrapper = styled.div`
   width: auto;
 `;
 
-const Input = styled.input<{ displayError: boolean }>`
+const Input = styled.input<{ displayError: boolean; isPassword: boolean }>`
   width: 100%;
   color: ${({ theme }) => theme.colors.dark};
+  ${({ isPassword }) =>
+    isPassword &&
+    css`
+      padding-right: 40px;
+    `}
   ${(props) =>
     props.displayError
       ? css`
           border: 2px solid ${colors.fieldColors.errorRed};
-          animation: ${animations.shake} 0.5s;
+          animation: ${animations.shake} 0.5s
+            cubic-bezier(0.15, 1.62, 0.6, 1.01);
           &:focus {
             box-shadow: 0 0 0 2px ${colors.fieldColors.shadowRed};
           }

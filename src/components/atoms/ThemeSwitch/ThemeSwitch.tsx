@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Styled from "./ThemeSwitch.styles";
 import { useThemeStore } from "contexts/ThemeStore";
 import { IconButton } from "@material-ui/core";
@@ -13,8 +14,14 @@ const ThemeSwitch = () => {
   const theme = useTheme();
   const isDark = theme === themes.dark;
 
+  const [animate, setAnimate] = useState(false);
+
   return (
-    <Styled.Wrapper>
+    <Styled.Wrapper
+      {...{ isDark, animate }}
+      onClick={() => setAnimate(true)}
+      onAnimationEnd={() => setAnimate(false)}
+    >
       <IconButton
         style={{
           border: `1px solid ${theme.colors.dark}`,

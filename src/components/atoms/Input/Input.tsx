@@ -18,9 +18,13 @@ const Input = ({ displayError, type, name, ...props }: InputProps) => {
         {...{ ...props, name, displayError }}
         autoComplete="on"
         type={isPassword && show ? "text" : type}
+        isPassword
       />
       {isPassword && (
-        <PasswordEye onClick={() => setShow(!show)} {...{ show, displayError }} />
+        <PasswordEye
+          onClick={() => setShow(!show)}
+          {...{ show, displayError }}
+        />
       )}
     </Styled.InputWrapper>
   );

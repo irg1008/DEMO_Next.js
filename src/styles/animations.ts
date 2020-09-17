@@ -5,12 +5,18 @@ const fallDown = keyframes`
         transform: translateY(-100%);
         opacity: 0;
     }
-    60% {
-        transform: translateY(15%);
-    }
     100% {
         transform: translateY(0);
         opacity: 1;
+    }
+`;
+
+const flipY = keyframes`
+    0% {
+        transform: rotateY(0);
+    }
+    100% {
+        transform: rotateY(180deg);
     }
 `;
 
@@ -30,6 +36,7 @@ const shake = keyframes`
 const animations = {
   fallDown,
   shake,
+  flipY,
 };
 
 export default animations;

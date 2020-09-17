@@ -16,6 +16,10 @@ declare module "styled-components" {
       lightOpacity: string;
       dark: string;
       darkOpacity: string;
+      grey4Opacity: string;
+      grey3Opacity: string;
+      grey2Opacity: string;
+      grey1Opacity: string;
       grey4: string;
       grey3: string;
       grey2: string;
