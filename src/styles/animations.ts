@@ -16,7 +16,7 @@ const flipY = keyframes`
         transform: rotateY(0);
     }
     100% {
-        transform: rotateY(180deg);
+        transform: rotateY(360deg);
     }
 `;
 
