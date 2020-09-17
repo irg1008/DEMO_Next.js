@@ -83,7 +83,7 @@ const NavRight = styled.div<{ open: boolean }>`
             height: 0;
           `};
   }
-  transition: height 0.3s ease-out;
+  transition: height 0.1s ease-out;
 `;
 
 const NavHam = styled.div`
