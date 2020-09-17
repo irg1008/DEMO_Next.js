@@ -1,19 +1,20 @@
 import { LinkProps } from "components/atoms/Link";
+import routes from "routes";
 
 const links: LinkProps[] = [
   {
     id: 0,
-    href: "/",
+    href: routes.home,
     text: "Home",
   },
   {
     id: 1,
-    href: "/signin",
+    href: routes.signin,
     text: "Log In",
   },
   {
     id: 2,
-    href: "/signup",
+    href: routes.signup,
     text: "Sign Up",
   },
 ];

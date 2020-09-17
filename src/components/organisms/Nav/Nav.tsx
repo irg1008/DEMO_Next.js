@@ -1,30 +1,27 @@
 import Styled from "./Nav.styles";
 import Link from "next/link";
-
-import { useThemeStore } from "contexts/ThemeStore";
+import routes from "routes";
 
 import NavLinks from "components/molecules/NavLinks";
 import Logo from "components/atoms/Logo";
 import ThemeSwitch from "components/atoms/ThemeSwitch";
+import HamIcon from "components/atoms/HamIcon";
 
-const Nav = () => {
-  const { toggleTheme } = useThemeStore();
-
-  return (
-    <Styled.NavWrapper>
-      <Styled.Nav>
-        <Styled.NavMain>
-          <Link href="/">
-            <Styled.NavLogo>
-              <Logo />
-            </Styled.NavLogo>
-          </Link>
-          <NavLinks />
-        </Styled.NavMain>
+const Nav = () => (
+  <Styled.NavWrapper>
+    <Styled.Nav>
+      <Link href={routes.home}>
+        <Styled.NavLogo>
+          <Logo />
+        </Styled.NavLogo>
+      </Link>
+      <HamIcon />
+      <Styled.NavMain>
+        <NavLinks />
         <ThemeSwitch />
-      </Styled.Nav>
-    </Styled.NavWrapper>
-  );
-};
+      </Styled.NavMain>
+    </Styled.Nav>
+  </Styled.NavWrapper>
+);
 
 export default Nav;

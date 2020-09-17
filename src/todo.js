@@ -6,3 +6,4 @@
 // TODO: Set theme for every user.
 // TODO: Set users with mongodb and next.
 // TODO: Set the google and passwordless sign.
+// TODO: Rearrange components.
