@@ -16,6 +16,7 @@ const Footer = styled.footer`
 
 const LogoContainer = styled.div`
   height: 50px;
+  wisth: 90%;
 `;
 
 const Separator = styled.div`
