@@ -8,7 +8,7 @@ const Global = createGlobalStyle`
 		text-decoration: none;
 		list-style: none;
 		transition: background-color 0.1s cubic-bezier(.88,1.11,.66,.29);
-		-webkit-tap-scrollbar-highlight-color: transparent;
+		-webkit-tap-highlight-color: transparent;
 	}
 
 	body {
