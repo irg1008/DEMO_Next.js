@@ -17,7 +17,7 @@ const Content = styled.section`
   padding: 50px;
   background-color: ${({ theme }) => theme.colors.grey2};
   @media screen and (max-width: ${media.mediumSmall}) {
-    padding: 25px;
+    padding: 10px;
   }
 `;
 
