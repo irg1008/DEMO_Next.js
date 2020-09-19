@@ -38,7 +38,7 @@ const FormTitle = styled.h1`
     margin: 10px auto;
     display: block;
     width: 20%;
-    border: 1px solid ${({ theme }) => theme.colors.dark};
+    border-bottom: 2px solid ${({ theme }) => theme.colors.dark};
     border-radius: 10px;
   }
 `;

@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { constants, shadows, media } from "styles";
+import { constants, shadows, media, noSelect } from "styles";
 
 const NavWrapper = styled.nav`
   margin-bottom: ${constants.navHeight};
@@ -47,6 +47,7 @@ const NavBG = styled.div<{ open: boolean }>`
           pointer-events: none;
         `}
   transition: opacity 0.3s ease;
+  ${noSelect};
 `;
 
 const NavLogo = styled.div`
