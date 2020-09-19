@@ -6,12 +6,10 @@ import axios from "axios";
 
 type Context = {
   toggleTheme: () => void;
-  themeLoaded: boolean;
 };
 
 const initialContext: Context = {
   toggleTheme: () => {},
-  themeLoaded: false,
 };
 
 const ThemeStoreContext = createContext(initialContext);
@@ -20,33 +18,39 @@ const useThemeStore = () => useContext(ThemeStoreContext);
 
 const ThemeStoreProvider: React.FC = ({ children }) => {
   const [theme, setTheme] = useState(defaultTheme);
-  const [themeLoaded, setThemeLoaded] = useState(initialContext.themeLoaded);
 
+  // On load => Get theme from api.
   useEffect(() => {
-    const origin = window.location.origin;
+    // const themeAPI = `${window.location.origin}/api/theme`;
+
     const fetchTheme = async () => {
-      const response = await axios.get(`${origin}/api/theme`);
-      const respondedTheme = response.data.theme;
+      //const response = await axios.get(themeAPI);
+      //const responseTheme = response.data.theme;
 
-      // Only set the api theme if ever changed. If not => Set to default.
-      respondedTheme !== null &&
-        respondedTheme !== theme &&
-        setTheme(respondedTheme);
+      const responseTheme = JSON.parse(localStorage.getItem("theme"));
 
-      // Set response has finish.
-      setThemeLoaded(true);
+      if (responseTheme) {
+        const responsePrimary = responseTheme.colors.primary;
+        if (responsePrimary !== theme.colors.primary) {
+          setTheme(
+            responsePrimary === themes.light.colors.primary
+              ? themes.light
+              : themes.dark
+          );
+        }
+      }
     };
 
     fetchTheme();
   }, []);
 
   useEffect(() => {
-    const origin = window.location.origin;
-    // On theme change => API will store data.
+    // const themeAPI = `${window.location.origin}/api/theme`;
+
     const updateTheme = async () => {
-      await axios.post(`${origin}/api/theme`, {
-        theme,
-      });
+      // await axios.post(themeAPI, { theme });
+
+      localStorage.setItem("theme", JSON.stringify(theme));
     };
 
     updateTheme();
@@ -56,10 +60,10 @@ const ThemeStoreProvider: React.FC = ({ children }) => {
     setTheme(theme === themes.light ? themes.dark : themes.light);
 
   return (
-    <ThemeStoreContext.Provider value={{ toggleTheme, themeLoaded }}>
+    <ThemeStoreContext.Provider value={{ toggleTheme }}>
       <ThemeProvider {...{ theme }}>
         <Global />
-        {themeLoaded && children}
+        {children}
       </ThemeProvider>
     </ThemeStoreContext.Provider>
   );

@@ -21,6 +21,14 @@ const fallFarRight = keyframes`
         opacity: 1;
     }
 `;
+const fadeOut = keyframes`
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+`;
 
 const flipY = keyframes`
     0% {
@@ -59,6 +67,7 @@ const animations = {
   flipY,
   fallFarRight,
   scaleDown,
+  fadeOut,
 };
 
 export default animations;

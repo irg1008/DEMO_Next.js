@@ -12,35 +12,34 @@ import themes from "styles/themes";
 const ThemeSwitch = () => {
   const { toggleTheme } = useThemeStore();
   const theme = useTheme();
-  const isDark = theme === themes.dark;
+
+  const Side =
+    theme === themes.light ? (
+      <DarkIcon fontSize="inherit" />
+    ) : (
+      <LightIcon fontSize="inherit" />
+    );
 
   const [animate, setAnimate] = useState(false);
 
-  const handleClick = () => {
+  const onClick = () => {
+    setAnimate(!animate);
     toggleTheme();
-    setAnimate(true);
   };
 
   return (
-    <Styled.Wrapper
-      {...{ isDark, animate }}
-      onAnimationEnd={() => setAnimate(false)}
-    >
+    <Styled.Wrapper {...{ onClick, animate }}>
       <IconButton
         style={{
           border: `1px solid ${theme.colors.dark}`,
-          width: "32px",
-          height: "32px",
-          fontSize: "16px",
+          position: "relative",
         }}
         color="inherit"
-        onClick={handleClick}
       >
-        {isDark ? (
-          <LightIcon fontSize="inherit" />
-        ) : (
-          <DarkIcon fontSize="inherit" />
-        )}
+        <Styled.Side style={{ transform: "rotateY(180deg)" }}>
+          {Side}
+        </Styled.Side>
+        <Styled.Side>{Side}</Styled.Side>
       </IconButton>
     </Styled.Wrapper>
   );

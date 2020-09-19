@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import themes from "styles/themes";
 
 // First the api has no value for the theme.
 // TODO: Change this to database with theme option by user.
