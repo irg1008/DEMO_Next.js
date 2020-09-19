@@ -29,6 +29,9 @@ const Form = styled.form`
   padding: 40px;
   border-radius: 12px;
   ${shadows.depthShadow};
+  @media screen and (max-width: ${media.mediumSmall}) {
+    padding: 20px;
+  }
 `;
 
 const FormTitle = styled.h1`
