@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { noSelect } from ".";
 
 const Global = createGlobalStyle`
 	* {
@@ -68,6 +69,7 @@ const Global = createGlobalStyle`
 				cursor: default;
 				color: ${({ theme }) => theme.colors.darkOpacity};
 		}
+		${noSelect};
 	}
 
 	a {

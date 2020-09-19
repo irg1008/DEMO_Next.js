@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { colors, noSelect } from "styles";
+import { colors } from "styles";
 
 const EyeWrapper = styled.div<{ displayError: boolean }>`
   position: absolute;
@@ -15,7 +15,6 @@ const EyeWrapper = styled.div<{ displayError: boolean }>`
     css`
       color: ${colors.fieldColors.errorRed};
     `};
-  ${noSelect};
 `;
 
 const EyeIcon = styled.span`
