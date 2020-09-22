@@ -2,9 +2,14 @@ import { useEffect } from "react";
 import Head from "next/head";
 import NavLinks from "components/molecules/NavLinks";
 import { useLayoutStore } from "contexts/LayoutStore";
-import Styled from "./404.styles";
+import Styled from "./Error.styles";
 
-const NotFound = () => {
+type ErrorProps = {
+  error: number;
+  text: string;
+};
+
+const Error = ({ error, text }: ErrorProps) => {
   const layout = useLayoutStore();
 
   useEffect(() => {
@@ -19,8 +24,8 @@ const NotFound = () => {
       </Head>
       <Styled.Wrapper>
         <Styled.InnerWrapper>
-          <Styled.Error>404</Styled.Error>
-          <Styled.Info>I'm sorry, you are lost.</Styled.Info>
+          <Styled.Error>{error}</Styled.Error>
+          <Styled.Info>{text}</Styled.Info>
           <NavLinks />
         </Styled.InnerWrapper>
       </Styled.Wrapper>
@@ -28,4 +33,4 @@ const NotFound = () => {
   );
 };
 
-export default NotFound;
+export default Error;

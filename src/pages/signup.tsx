@@ -1,4 +1,4 @@
-import { InjectedFormikProps, withFormik } from "formik";
+import { FormikProps, withFormik } from "formik";
 import * as Yup from "yup";
 
 import Head from "next/head";
@@ -7,6 +7,9 @@ import Field from "components/molecules/Field";
 import ThemedButton from "components/atoms/ThemedButton";
 import Form from "components/organisms/Form";
 import GoogleButton from "components/atoms/GoogleButton";
+
+import axios from "axios";
+import argon2 from "argon2";
 
 interface FormValues {
   username: string;
@@ -47,9 +50,7 @@ interface FormProps {
   confirmPassword?: string;
 }
 
-const InnerForm: React.SFC<InjectedFormikProps<FormProps, FormValues>> = (
-  props
-) => (
+const InnerForm = (props: FormikProps<FormValues>) => (
   <Form
     onSubmit={props.handleSubmit}
     title="sign up"
@@ -63,30 +64,40 @@ const InnerForm: React.SFC<InjectedFormikProps<FormProps, FormValues>> = (
   </Form>
 );
 
-const handleSubmit = (
-  values: FormValues,
-  setSubmitting: (submit: boolean) => void
-) => {
-  setTimeout(() => {
-    alert("signin");
-    setSubmitting(false);
-  }, 1000);
+const Signup = () => {
+  const handleSubmit = async (
+    values: FormValues,
+    setSubmitting: (submit: boolean) => void
+  ) => {
+    const hashed = await argon2.hash(values.password);
+    if (argon2.verify(hashed, values.password)) {
+      const user = await axios.post("/api/auth/users", {
+        username: values.username,
+        email: values.email,
+        password: hashed,
+      });
+
+      console.log(user);
+
+      setSubmitting(false);
+    }
+  };
+
+  const SigupForm = withFormik<FormProps, FormValues>({
+    mapPropsToValues: () => ({ ...initialValues }),
+    validationSchema: validationSchema,
+    handleSubmit: (values, { setSubmitting }) =>
+      handleSubmit(values, setSubmitting),
+  })(InnerForm);
+
+  return (
+    <>
+      <Head>
+        <title>{"Silk&Rock - Sign Up"}</title>
+      </Head>
+      <SigupForm />
+    </>
+  );
 };
-
-const SigupForm = withFormik<FormProps, FormValues>({
-  mapPropsToValues: () => ({ ...initialValues }),
-  validationSchema: validationSchema,
-  handleSubmit: (values, { setSubmitting }) =>
-    handleSubmit(values, setSubmitting),
-})(InnerForm);
-
-const Signup = () => (
-  <>
-    <Head>
-      <title>{"Silk&Rock - Sign Up"}</title>
-    </Head>
-    <SigupForm />
-  </>
-);
 
 export default Signup;

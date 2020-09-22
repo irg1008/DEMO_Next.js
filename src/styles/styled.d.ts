@@ -5,7 +5,7 @@ declare module "styled-components" {
     light: DefaultTheme;
     dark: DefaultTheme;
   }
-  interface DefaultTheme {
+  export interface DefaultTheme {
     borderRadius: string;
     colors: {
       primary: string;

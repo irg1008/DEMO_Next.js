@@ -21,5 +21,6 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     default:
       res.setHeader("Allow", ["GET", "POST"]);
       res.status(405).end(`Method ${method} Not Allowed`);
+      break;
   }
 };

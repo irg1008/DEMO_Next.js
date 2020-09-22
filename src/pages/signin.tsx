@@ -1,4 +1,4 @@
-import { InjectedFormikProps, withFormik } from "formik";
+import { FormikProps, withFormik } from "formik";
 import * as Yup from "yup";
 
 import Head from "next/head";
@@ -34,9 +34,7 @@ interface FormProps {
   password?: string;
 }
 
-const InnerForm: React.SFC<InjectedFormikProps<FormProps, FormValues>> = (
-  props
-) => (
+const InnerForm = (props: FormikProps<FormValues>) => (
   <Form
     onSubmit={props.handleSubmit}
     title="sign in"
@@ -48,30 +46,29 @@ const InnerForm: React.SFC<InjectedFormikProps<FormProps, FormValues>> = (
   </Form>
 );
 
-const handleSubmit = (
-  values: FormValues,
-  setSubmitting: (submit: boolean) => void
-) => {
-  setTimeout(() => {
-    alert("login");
+const Signin = () => {
+  const handleSubmit = (
+    values: FormValues,
+    setSubmitting: (submit: boolean) => void
+  ) => {
     setSubmitting(false);
-  }, 1000);
+  };
+
+  const SigninForm = withFormik<FormProps, FormValues>({
+    mapPropsToValues: () => ({ ...initialValues }),
+    validationSchema: validationSchema,
+    handleSubmit: (values, { setSubmitting }) =>
+      handleSubmit(values, setSubmitting),
+  })(InnerForm);
+
+  return (
+    <>
+      <Head>
+        <title>{"Silk&Rock - Sign In"}</title>
+      </Head>
+      <SigninForm />
+    </>
+  );
 };
-
-const SigninForm = withFormik<FormProps, FormValues>({
-  mapPropsToValues: () => ({ ...initialValues }),
-  validationSchema: validationSchema,
-  handleSubmit: (values, { setSubmitting }) =>
-    handleSubmit(values, setSubmitting),
-})(InnerForm);
-
-const Signin = () => (
-  <>
-    <Head>
-      <title>{"Silk&Rock - Sign In"}</title>
-    </Head>
-    <SigninForm />
-  </>
-);
 
 export default Signin;
