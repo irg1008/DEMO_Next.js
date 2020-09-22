@@ -27,7 +27,7 @@ const CardImg = styled.img<{ hovering: boolean }>`
 const CardTextWrapper = styled.div<{ hovering: boolean }>`
   height: 100px;
   display: flex;
-  opacity: 0;
+  opacity: 1;
   flex-direction: column;
   justify-content: center;
   ${({ hovering }) =>
