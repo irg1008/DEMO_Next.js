@@ -7,3 +7,5 @@
 // TODO: Set users with mongodb and next.
 // TODO: Set the google and passwordless sign.
 // TODO: Rearrange components.
+
+// TODO: Keep doing and making all the auth with mongoDB, after that make google provider and passwordless(magic?)

@@ -10,7 +10,7 @@ type PasswordEyeProps = {
 
 const PasswordEye = ({ onClick, show, displayError }: PasswordEyeProps) => (
   <Styled.EyeWrapper {...{ displayError }}>
-    <IconButton color="inherit" {...{ onClick }}>
+    <IconButton tabIndex={-1} color="inherit" {...{ onClick }}>
       <Styled.EyeIcon>
         {show ? <EyeOutlined /> : <EyeInvisibleOutlined />}
       </Styled.EyeIcon>

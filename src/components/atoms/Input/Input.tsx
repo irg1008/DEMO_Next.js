@@ -15,10 +15,9 @@ const Input = ({ displayError, type, name, ...props }: InputProps) => {
   return (
     <Styled.InputWrapper>
       <Styled.Input
-        {...{ ...props, name, displayError }}
+        {...{ ...props, name, displayError, isPassword }}
         autoComplete="on"
         type={isPassword && show ? "text" : type}
-        isPassword
       />
       {isPassword && (
         <PasswordEye

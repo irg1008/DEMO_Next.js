@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Card from "components/atoms/Card";
 
 const Home = () => (
   <>
@@ -10,6 +11,7 @@ const Home = () => (
         <h1>Hell</h1>
         <p>Yeah!</p>
       </div>
+      <Card />
     </header>
   </>
 );

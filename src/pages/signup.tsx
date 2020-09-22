@@ -8,8 +8,7 @@ import ThemedButton from "components/atoms/ThemedButton";
 import Form from "components/organisms/Form";
 import GoogleButton from "components/atoms/GoogleButton";
 
-import axios from "axios";
-import argon2 from "argon2";
+import { signUp } from "lib/auth";
 
 interface FormValues {
   username: string;
@@ -69,18 +68,11 @@ const Signup = () => {
     values: FormValues,
     setSubmitting: (submit: boolean) => void
   ) => {
-    const hashed = await argon2.hash(values.password);
-    if (argon2.verify(hashed, values.password)) {
-      const user = await axios.post("/api/auth/users", {
-        username: values.username,
-        email: values.email,
-        password: hashed,
-      });
+    const user = await signUp(values.username, values.email, values.password);
 
-      console.log(user);
+    console.log(user);
 
-      setSubmitting(false);
-    }
+    setSubmitting(false);
   };
 
   const SigupForm = withFormik<FormProps, FormValues>({
