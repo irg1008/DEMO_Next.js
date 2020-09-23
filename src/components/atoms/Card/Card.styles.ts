@@ -1,47 +1,50 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
+import { shadows } from "styles";
+
+const CardImg = styled.img`
+  height: 50%;
+  width: 100%;
+  overflow: hidden;
+  transition: 0.4s height ease-in-out;
+  object-fit: cover;
+  object-position: center;
+`;
+
+const CardTextWrapper = styled.div`
+  height: 50%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 1;
+  transition: 0.2s opacity ease-in-out;
+`;
 
 const CardWrapper = styled.div`
-  border-radius: 8px;
-  background-color: white;
+  ${shadows.depthShadow};
+  border-radius: 20px;
+  background-color: ${({ theme }) => theme.colors.grey4};
   height: 300px;
   width: 200px;
   margin: 20px;
-  display: flex;
-  flex-direction: column;
-  color: black;
+  display: block;
+  color: ${({ theme }) => theme.colors.grey1};
   overflow: hidden;
-`;
-
-const CardImg = styled.img<{ hovering: boolean }>`
-  height: 200px;
-  overflow: hidden;
-  ${({ hovering }) =>
-    hovering &&
-    css`
-      height: 300px;
-    `}
-  transition: 0.8s height ease;
-  object-fit: cover;
-`;
-
-const CardTextWrapper = styled.div<{ hovering: boolean }>`
-  height: 100px;
-  display: flex;
-  opacity: 1;
-  flex-direction: column;
-  justify-content: center;
-  ${({ hovering }) =>
-    hovering &&
-    css`
-      height: 0;
+  &:hover {
+    ${CardImg} {
+      height: 100%;
+    }
+    ${CardTextWrapper} {
       opacity: 0;
-    `}
-  transition: 0.8s height ease, 0.4s opacity ease;
+    }
+  }
 `;
 
 const CardTitle = styled.h2``;
 
-const CardText = styled.p``;
+const CardText = styled.p`
+  margin: 10px;
+`;
 
 const Styled = { CardWrapper, CardImg, CardTextWrapper, CardTitle, CardText };
 
