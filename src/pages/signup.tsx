@@ -68,10 +68,9 @@ const Signup = () => {
     values: FormValues,
     setSubmitting: (submit: boolean) => void
   ) => {
-    const user = await signUp(values.username, values.email, values.password);
-
-    console.log(user);
-
+    const res = await signUp(values.username, values.email, values.password);
+    console.log(res);
+    
     setSubmitting(false);
   };
 

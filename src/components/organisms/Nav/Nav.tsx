@@ -27,7 +27,7 @@ const Nav = () => {
           </Styled.NavHam>
         </Styled.NavLeft>
         <Styled.NavRight open={menuIsOpen}>
-          <NavLinks />
+          <NavLinks onClick={closeMenu} />
           <ThemeSwitch />
         </Styled.NavRight>
       </Styled.Nav>

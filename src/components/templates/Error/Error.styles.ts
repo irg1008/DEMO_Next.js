@@ -9,10 +9,10 @@ const Wrapper = styled.div`
 `;
 
 const InnerWrapper = styled.div`
-  height: 400px;
+  height: 550px;
   margin-top: 50px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   flex-direction: column;
 `;

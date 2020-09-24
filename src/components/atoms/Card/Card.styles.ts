@@ -2,20 +2,17 @@ import styled from "styled-components";
 import { shadows } from "styles";
 
 const CardImg = styled.img`
-  height: 50%;
+  height: 60%;
   width: 100%;
-  overflow: hidden;
   transition: 0.4s height ease-in-out;
   object-fit: cover;
   object-position: center;
 `;
 
 const CardTextWrapper = styled.div`
-  height: 50%;
+  height: 40%;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  padding: 20px;
   opacity: 1;
   transition: 0.2s opacity ease-in-out;
 `;
@@ -23,12 +20,11 @@ const CardTextWrapper = styled.div`
 const CardWrapper = styled.div`
   ${shadows.depthShadow};
   border-radius: 20px;
-  background-color: ${({ theme }) => theme.colors.grey4};
+  background-color: ${({ theme }) => theme.colors.grey1};
   height: 300px;
   width: 200px;
   margin: 20px;
-  display: block;
-  color: ${({ theme }) => theme.colors.grey1};
+  color: ${({ theme }) => theme.colors.grey4};
   overflow: hidden;
   &:hover {
     ${CardImg} {
@@ -42,9 +38,7 @@ const CardWrapper = styled.div`
 
 const CardTitle = styled.h2``;
 
-const CardText = styled.p`
-  margin: 10px;
-`;
+const CardText = styled.p``;
 
 const Styled = { CardWrapper, CardImg, CardTextWrapper, CardTitle, CardText };
 

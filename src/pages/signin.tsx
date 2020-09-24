@@ -1,6 +1,8 @@
 import { FormikProps, withFormik } from "formik";
 import * as Yup from "yup";
 
+import { signIn } from "lib/auth";
+
 import Head from "next/head";
 
 import Field from "components/molecules/Field";
@@ -47,10 +49,13 @@ const InnerForm = (props: FormikProps<FormValues>) => (
 );
 
 const Signin = () => {
-  const handleSubmit = (
+  const handleSubmit = async (
     values: FormValues,
     setSubmitting: (submit: boolean) => void
   ) => {
+    const res = await signIn(values.email, values.password);
+    console.log(res);
+
     setSubmitting(false);
   };
 

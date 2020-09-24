@@ -5,7 +5,7 @@ const LinkList = styled.ul`
   display: flex;
   justify-content: space-around;
   width: auto;
-  min-width: 15em;
+  min-width: 10em;
   text-transform: uppercase;
   @media screen and (max-width: ${media.medium}) {
     flex-direction: column;

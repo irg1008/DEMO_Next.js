@@ -9,3 +9,4 @@
 // TODO: Rearrange components.
 
 // TODO: Keep doing and making all the auth with mongoDB, after that make google provider and passwordless(magic?)
+// TODO: Do email verification on sign up and email verification check on sign in.

@@ -4,13 +4,14 @@ import links from "./links";
 
 type NavLinksProps = {
   color?: string;
+  onClick?: () => void;
 };
 
-const NavLinks = ({ color }: NavLinksProps) =>
+const NavLinks = ({ color, onClick }: NavLinksProps) =>
   links && (
     <Styled.LinkList>
       {links.map(({ id, href, text }) => (
-        <Styled.LinkElement key={id}>
+        <Styled.LinkElement {...{ onClick }} key={id}>
           <Link {...{ href, text, color }} />
         </Styled.LinkElement>
       ))}

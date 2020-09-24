@@ -1,17 +1,33 @@
 import axios from "axios";
-import bcrypt from "bcryptjs";
 
 const signUp = async (username: string, email: string, password: string) => {
-  const hashed = await bcrypt.hash(password, 10);
+  // Get the data retrieved from the API.
+  try {
+    const res = await axios.post("/api/auth/signup", {
+      username,
+      email,
+      password,
+      verified: false,
+    });
 
-  const user = await axios.post("/api/auth/users", {
-    username,
-    email,
-    password: hashed,
-    verified: false,
-  });
-
-  return user;
+    return res.data;
+  } catch (error) {
+    // If any error happens. Axios will throw it and we will return our own response for the error.
+    return error.response.data;
+  }
 };
 
-export { signUp };
+const signIn = async (email: string, password: string) => {
+  try {
+    const res = await axios.post("/api/auth/signin", {
+      email,
+      password,
+    });
+
+    return res.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+export { signUp, signIn };

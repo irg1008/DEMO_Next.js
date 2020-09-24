@@ -77,7 +77,7 @@ const NavRight = styled.div<{ open: boolean }>`
     ${({ open }) =>
       open
         ? css`
-            height: 18em;
+            height: 80vh;
           `
         : css`
             height: 0;
