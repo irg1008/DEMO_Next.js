@@ -10,7 +10,7 @@ const ButtonWrapper = styled.div`
 
 const Button = styled.button`
   min-width: 150px;
-  min-height: 30px;
+  min-height: 40px;
   color: ${({ theme }) => theme.colors.light};
   background-color: ${({ theme }) => theme.colors.primary};
   &:hover {

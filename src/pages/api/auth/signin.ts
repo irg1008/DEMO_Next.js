@@ -2,6 +2,8 @@ import dbConnect from "util/dbConnect";
 import { NextApiRequest, NextApiResponse } from "next";
 import User from "models/User";
 import bcrypt from "bcryptjs";
+import codes from "util/errorCodes";
+import validations from "util/validations";
 
 const signin = async (req: NextApiRequest, res: NextApiResponse) => {
   await dbConnect();
@@ -13,9 +15,11 @@ const signin = async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         const user = req.body;
 
-        if (!user.email) throw new Error("Please provide an email");
+        const validEmail = await validations.email.isValid(user.email);
+        if (!validEmail) throw new Error("Please provide a valid email");
 
-        if (!user.password) throw new Error("Please provide a password");
+        const validPassword = await validations.password.isValid(user.password);
+        if (!validPassword) throw new Error("Please provide a valid password");
 
         const dbUser = await User.findOne({ email: user.email });
 
@@ -23,7 +27,7 @@ const signin = async (req: NextApiRequest, res: NextApiResponse) => {
           res.status(404).json({
             success: false,
             message: "No user has been found with given e-mail",
-            code: "user-not-found",
+            code: codes.signin.userNotFound,
           });
         } else {
           // Check if passed password checks with hashed on database.
@@ -33,23 +37,32 @@ const signin = async (req: NextApiRequest, res: NextApiResponse) => {
           );
 
           if (correctPassword) {
-            res.status(200).json({
-              success: true,
-              message: "User logged without errors",
-              user: dbUser,
-            });
+            if (user.verified) {
+              res.status(200).json({
+                success: true,
+                message: "User successfully logged",
+                user: dbUser,
+              });
+            } else {
+              res.status(401).json({
+                success: false,
+                message: "Email not verified",
+                code: codes.signin.emailNotVerfied,
+              });
+            }
           } else {
             res.status(401).json({
               success: false,
               message: "Password incorrect",
-              code: "password-incorrect",
+              code: codes.signin.passwordIncorrect,
             });
           }
         }
 
         break;
       } catch (error) {
-        res.status(400).json({ success: false, error });
+        res.status(400).json({ success: false, error: error.message });
+        break;
       }
     }
     default:

@@ -2,6 +2,8 @@ import dbConnect from "util/dbConnect";
 import User from "models/User";
 import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcryptjs";
+import codes from "util/errorCodes";
+import validations from "util/validations";
 
 const signup = async (req: NextApiRequest, res: NextApiResponse) => {
   // Wait for db to connect if needed.
@@ -14,11 +16,14 @@ const signup = async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         const user = req.body;
 
-        if (!user.email) throw new Error("Please provide an email");
+        const validEmail = await validations.email.isValid(user.email);
+        if (!validEmail) throw new Error("Please provide a valid email");
 
-        if (!user.username) throw new Error("Please provide a username");
+        const validPassword = await validations.password.isValid(user.password);
+        if (!validPassword) throw new Error("Please provide a valid password");
 
-        if (!user.password) throw new Error("Please provide a password");
+        const validUsername = await validations.username.isValid(user.username);
+        if (!validUsername) throw new Error("Please provide a valid password");
 
         const dbUser = await User.findOne({ email: user.email });
 
@@ -26,7 +31,7 @@ const signup = async (req: NextApiRequest, res: NextApiResponse) => {
           res.status(409).json({
             success: false,
             message: "User already exists",
-            code: "email-already-taken",
+            code: codes.signup.emailAlreadyTaken,
           });
         } else {
           user.password = await bcrypt.hash(user.password, 10);
@@ -38,7 +43,8 @@ const signup = async (req: NextApiRequest, res: NextApiResponse) => {
 
         break;
       } catch (error) {
-        res.status(400).json({ success: false, error });
+        res.status(400).json({ success: false, error: error.message });
+        break;
       }
     }
     default:

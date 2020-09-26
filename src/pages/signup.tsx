@@ -1,14 +1,13 @@
-import { FormikProps, withFormik } from "formik";
+import { FormikBag, FormikProps, withFormik } from "formik";
 import * as Yup from "yup";
-
 import Head from "next/head";
-
 import Field from "components/molecules/Field";
 import ThemedButton from "components/atoms/ThemedButton";
 import Form from "components/organisms/Form";
 import GoogleButton from "components/atoms/GoogleButton";
-
+import validations from "util/validations";
 import { signUp } from "lib/auth";
+import codes from "util/errorCodes";
 
 interface FormValues {
   username: string;
@@ -16,6 +15,7 @@ interface FormValues {
   password: string;
   confirmPassword: string;
 }
+
 const initialValues: FormValues = {
   username: "",
   email: "",
@@ -23,31 +23,43 @@ const initialValues: FormValues = {
   confirmPassword: "",
 };
 
-const validationSchema = Yup.object().shape({
-  username: Yup.string()
-    .min(3, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
-  email: Yup.string().email("Invalid email").required("Email Required"),
-  password: Yup.string()
-    .min(6, "The password must be at least 6 characters long")
-    .max(50, "Too Long!")
-    .matches(
-      /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])/,
-      "Password must contain at least one number, one lowercase and one uppercase"
-    )
-    .required("Password Required"),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password")], "Passwords must match")
-    .required("Confirm Password Required"),
+interface FormProps {}
+
+const validationSchema = Yup.object<FormValues>({
+  username: validations.username,
+  email: validations.email,
+  password: validations.password,
+  confirmPassword: validations.confirmPassword,
 });
 
-interface FormProps {
-  username?: string;
-  email?: string;
-  password?: string;
-  confirmPassword?: string;
-}
+const handleSubmit = async (
+  values: FormValues,
+  { setSubmitting, setFieldError }: FormikBag<FormProps, FormValues>
+) => {
+  // Sign up the user.
+  const res = await signUp(values.username, values.email, values.password);
+
+  if (!res.success) {
+    switch (res.code) {
+      case codes.signup.emailAlreadyTaken: {
+        setFieldError(
+          "email",
+          "This email is already taken. Please try another or sign in"
+        );
+        break;
+      }
+      default: {
+        setFieldError(
+          "email",
+          `Sorry, this error ocurred: "${res.error}"`
+        );
+        break;
+      }
+    }
+  }
+
+  setSubmitting(false);
+};
 
 const InnerForm = (props: FormikProps<FormValues>) => (
   <Form
@@ -63,32 +75,19 @@ const InnerForm = (props: FormikProps<FormValues>) => (
   </Form>
 );
 
-const Signup = () => {
-  const handleSubmit = async (
-    values: FormValues,
-    setSubmitting: (submit: boolean) => void
-  ) => {
-    const res = await signUp(values.username, values.email, values.password);
-    console.log(res);
-    
-    setSubmitting(false);
-  };
+const SigUpForm = withFormik<FormProps, FormValues>({
+  mapPropsToValues: () => initialValues,
+  validationSchema,
+  handleSubmit,
+})(InnerForm);
 
-  const SigupForm = withFormik<FormProps, FormValues>({
-    mapPropsToValues: () => ({ ...initialValues }),
-    validationSchema: validationSchema,
-    handleSubmit: (values, { setSubmitting }) =>
-      handleSubmit(values, setSubmitting),
-  })(InnerForm);
+const SignUp = () => (
+  <>
+    <Head>
+      <title>{"Silk&Rock - Sign Up"}</title>
+    </Head>
+    <SigUpForm />
+  </>
+);
 
-  return (
-    <>
-      <Head>
-        <title>{"Silk&Rock - Sign Up"}</title>
-      </Head>
-      <SigupForm />
-    </>
-  );
-};
-
-export default Signup;
+export default SignUp;

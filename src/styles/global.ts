@@ -65,7 +65,7 @@ const Global = createGlobalStyle`
 				transition: 0.2s background-color;
 		}
 		&:disabled, &:disabled:hover {
-				background-color: ${({ theme }) => theme.colors.grey1};
+				background-color: ${({ theme }) => theme.colors.grey2};
 				cursor: default;
 				color: ${({ theme }) => theme.colors.darkOpacity};
 		}

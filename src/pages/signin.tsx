@@ -1,14 +1,13 @@
-import { FormikProps, withFormik } from "formik";
+import { FormikBag, FormikProps, withFormik } from "formik";
 import * as Yup from "yup";
-
 import { signIn } from "lib/auth";
-
 import Head from "next/head";
-
 import Field from "components/molecules/Field";
 import ThemedButton from "components/atoms/ThemedButton";
 import Form from "components/organisms/Form";
 import GoogleButton from "components/atoms/GoogleButton";
+import validations from "util/validations";
+import codes from "util/errorCodes";
 
 interface FormValues {
   email: string;
@@ -19,22 +18,47 @@ const initialValues: FormValues = {
   password: "",
 };
 
-const validationSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Email Required"),
-  password: Yup.string()
-    .min(6, "The password must be at least 6 characters long")
-    .max(50, "Too Long!")
-    .matches(
-      /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])/,
-      "Password must contain at least one number, one lowercase and one uppercase"
-    )
-    .required("Password Required"),
+interface FormProps {}
+
+const validationSchema = Yup.object<FormValues>({
+  email: validations.email,
+  password: validations.password,
 });
 
-interface FormProps {
-  email?: string;
-  password?: string;
-}
+const handleSubmit = async (
+  values: FormValues,
+  { setSubmitting, setFieldError }: FormikBag<FormProps, FormValues>
+) => {
+  // Sign in the user.
+  const res = await signIn(values.email, values.password);
+
+  if (!res.success) {
+    switch (res.code) {
+      case codes.signin.emailNotVerfied: {
+        setFieldError(
+          "email",
+          "This email is not verified. Please check your inbox"
+        );
+        break;
+      }
+      case codes.signin.passwordIncorrect: {
+        setFieldError("password", "Te password inserted is incorrect");
+        break;
+      }
+      case codes.signin.userNotFound: {
+        setFieldError("email", "The user does not exist");
+        break;
+      }
+      default: {
+        setFieldError("email", `Sorry, this error ocurred: "${res.error}"`);
+        break;
+      }
+    }
+  }
+  //setFieldError("email", "There is an error that needs to be displayed");
+
+  setSubmitting(false);
+};
 
 const InnerForm = (props: FormikProps<FormValues>) => (
   <Form
@@ -48,32 +72,19 @@ const InnerForm = (props: FormikProps<FormValues>) => (
   </Form>
 );
 
-const Signin = () => {
-  const handleSubmit = async (
-    values: FormValues,
-    setSubmitting: (submit: boolean) => void
-  ) => {
-    const res = await signIn(values.email, values.password);
-    console.log(res);
+const SigninForm = withFormik<FormProps, FormValues>({
+  mapPropsToValues: () => initialValues,
+  validationSchema,
+  handleSubmit,
+})(InnerForm);
 
-    setSubmitting(false);
-  };
+const SignIn = () => (
+  <>
+    <Head>
+      <title>{"Silk&Rock - Sign In"}</title>
+    </Head>
+    <SigninForm />
+  </>
+);
 
-  const SigninForm = withFormik<FormProps, FormValues>({
-    mapPropsToValues: () => ({ ...initialValues }),
-    validationSchema: validationSchema,
-    handleSubmit: (values, { setSubmitting }) =>
-      handleSubmit(values, setSubmitting),
-  })(InnerForm);
-
-  return (
-    <>
-      <Head>
-        <title>{"Silk&Rock - Sign In"}</title>
-      </Head>
-      <SigninForm />
-    </>
-  );
-};
-
-export default Signin;
+export default SignIn;
