@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import Styled from "./Link.styled";
 
 export type LinkProps = {
-  id?: React.ReactText;
   href: string;
   text: string;
   color?: string;

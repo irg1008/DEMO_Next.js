@@ -40,10 +40,9 @@ const signup = async (req: NextApiRequest, res: NextApiResponse) => {
             .status(201)
             .json({ success: true, message: "User created successfully" });
         }
-
-        break;
       } catch (error) {
         res.status(400).json({ success: false, error: error.message });
+      } finally {
         break;
       }
     }

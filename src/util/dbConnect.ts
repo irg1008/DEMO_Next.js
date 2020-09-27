@@ -13,7 +13,7 @@ const dbConnect = async () => {
     // 0 = Disconnected, 1 = Connected, 2 = Connecting, 3 = Diconnecting.
     // Converted to boolean with !!. So 1 = true, rest = false.
     connection.isConnected = !!db.connections[0].readyState;
-    console.log(`Database connected: ${connection.isConnected}`);
+    // console.log(`Database connected: ${connection.isConnected}`);
   }
 };
 

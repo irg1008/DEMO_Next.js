@@ -4,76 +4,86 @@ import User from "models/User";
 import bcrypt from "bcryptjs";
 import codes from "util/errorCodes";
 import validations from "util/validations";
+import withSession from "lib/session";
 
-const signin = async (req: NextApiRequest, res: NextApiResponse) => {
-  await dbConnect();
+const signin = withSession(
+  async (req: NextApiRequest & { session: any }, res: NextApiResponse) => {
+    await dbConnect();
 
-  const { method } = req;
+    const { method } = req;
 
-  switch (method) {
-    case "POST": {
-      try {
-        const user = req.body;
+    switch (method) {
+      case "POST": {
+        try {
+          const user = req.body;
 
-        const validEmail = await validations.email.isValid(user.email);
-        if (!validEmail) throw new Error("Please provide a valid email");
+          const validEmail = await validations.email.isValid(user.email);
+          if (!validEmail) throw new Error("Please provide a valid email");
 
-        const validPassword = await validations.password.isValid(user.password);
-        if (!validPassword) throw new Error("Please provide a valid password");
-
-        const dbUser = await User.findOne({ email: user.email });
-
-        if (!dbUser) {
-          res.status(404).json({
-            success: false,
-            message: "No user has been found with given e-mail",
-            code: codes.signin.userNotFound,
-          });
-        } else {
-          // Check if passed password checks with hashed on database.
-          const correctPassword = await bcrypt.compare(
-            user.password,
-            dbUser.password
+          const validPassword = await validations.password.isValid(
+            user.password
           );
+          if (!validPassword)
+            throw new Error("Please provide a valid password");
 
-          if (correctPassword) {
-            if (user.verified) {
-              res.status(200).json({
-                success: true,
-                message: "User successfully logged",
-                user: dbUser,
-              });
+          const dbUser = await User.findOne({ email: user.email });
+
+          if (!dbUser) {
+            res.status(404).json({
+              success: false,
+              message: "No user has been found with given e-mail",
+              code: codes.signin.userNotFound,
+            });
+          } else {
+            // Check if passed password checks with hashed on database.
+            const correctPassword = await bcrypt.compare(
+              user.password,
+              dbUser.password
+            );
+
+            if (correctPassword) {
+              // User without password.
+              dbUser.password = undefined;
+
+              if (dbUser.verified) {
+                req.session.set("user", dbUser);
+                await req.session.save();
+                res.status(200).json({
+                  success: true,
+                  message: "User successfully logged",
+                  user: dbUser,
+                });
+              } else {
+                res.status(401).json({
+                  success: false,
+                  message: "Email not verified",
+                  code: codes.signin.emailNotVerfied,
+                });
+              }
             } else {
               res.status(401).json({
                 success: false,
-                message: "Email not verified",
-                code: codes.signin.emailNotVerfied,
+                message: "Password incorrect",
+                code: codes.signin.passwordIncorrect,
               });
             }
-          } else {
-            res.status(401).json({
-              success: false,
-              message: "Password incorrect",
-              code: codes.signin.passwordIncorrect,
-            });
           }
+        } catch (error) {
+          res.status(400).json({ success: false, error: error.message });
+        } finally {
+          break;
         }
-
-        break;
-      } catch (error) {
-        res.status(400).json({ success: false, error: error.message });
-        break;
       }
+      default:
+        {
+          res.setHeader("Allow", ["POST"]);
+          res
+            .status(405)
+            .json({ success: false, message: `Method ${method} not allowed` });
+        }
+        break;
     }
-    default:
-      {
-        res.setHeader("Allow", ["POST"]);
-        res
-          .status(405)
-          .json({ success: false, message: `Method ${method} not allowed` });
-      }
-      break;
   }
-};
+);
 
 export default signin;

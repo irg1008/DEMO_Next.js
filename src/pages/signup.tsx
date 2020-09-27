@@ -6,8 +6,9 @@ import ThemedButton from "components/atoms/ThemedButton";
 import Form from "components/organisms/Form";
 import GoogleButton from "components/atoms/GoogleButton";
 import validations from "util/validations";
-import { signUp } from "lib/auth";
+import { signUp } from "middlewares/auth";
 import codes from "util/errorCodes";
+import useUser from "lib/useUser";
 
 interface FormValues {
   username: string;
@@ -32,35 +33,6 @@ const validationSchema = Yup.object<FormValues>({
   confirmPassword: validations.confirmPassword,
 });
 
-const handleSubmit = async (
-  values: FormValues,
-  { setSubmitting, setFieldError }: FormikBag<FormProps, FormValues>
-) => {
-  // Sign up the user.
-  const res = await signUp(values.username, values.email, values.password);
-
-  if (!res.success) {
-    switch (res.code) {
-      case codes.signup.emailAlreadyTaken: {
-        setFieldError(
-          "email",
-          "This email is already taken. Please try another or sign in"
-        );
-        break;
-      }
-      default: {
-        setFieldError(
-          "email",
-          `Sorry, this error ocurred: "${res.error}"`
-        );
-        break;
-      }
-    }
-  }
-
-  setSubmitting(false);
-};
-
 const InnerForm = (props: FormikProps<FormValues>) => (
   <Form
     onSubmit={props.handleSubmit}
@@ -75,19 +47,49 @@ const InnerForm = (props: FormikProps<FormValues>) => (
   </Form>
 );
 
-const SigUpForm = withFormik<FormProps, FormValues>({
-  mapPropsToValues: () => initialValues,
-  validationSchema,
-  handleSubmit,
-})(InnerForm);
+const SignUp = () => {
+  useUser({ redirectTo: "/" });
 
-const SignUp = () => (
-  <>
-    <Head>
-      <title>{"Silk&Rock - Sign Up"}</title>
-    </Head>
-    <SigUpForm />
-  </>
-);
+  const handleSubmit = async (
+    values: FormValues,
+    { setSubmitting, setFieldError }: FormikBag<FormProps, FormValues>
+  ) => {
+    // Sign up the user.
+    const res = await signUp(values.username, values.email, values.password);
+
+    if (!res.success) {
+      switch (res.code) {
+        case codes.signup.emailAlreadyTaken: {
+          setFieldError(
+            "email",
+            "This email is already taken. Please try another or sign in"
+          );
+          break;
+        }
+        default: {
+          setFieldError("email", `Sorry, this error ocurred: "${res.error}"`);
+          break;
+        }
+      }
+    }
+
+    setSubmitting(false);
+  };
+
+  const SigUpForm = withFormik<FormProps, FormValues>({
+    mapPropsToValues: () => initialValues,
+    validationSchema,
+    handleSubmit,
+  })(InnerForm);
+
+  return (
+    <>
+      <Head>
+        <title>{"Silk&Rock - Sign Up"}</title>
+      </Head>
+      <SigUpForm />
+    </>
+  );
+};
 
 export default SignUp;

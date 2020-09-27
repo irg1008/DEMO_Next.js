@@ -30,4 +30,14 @@ const signIn = async (email: string, password: string) => {
   }
 };
 
-export { signUp, signIn };
+const signOut = async () => {
+  try {
+    const res = await axios.get("/api/auth/signout");
+
+    return res.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
+export { signUp, signIn, signOut };
