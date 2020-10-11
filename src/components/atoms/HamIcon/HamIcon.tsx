@@ -1,7 +1,7 @@
 import { IconButton } from "@material-ui/core";
-import { motion } from "framer-motion";
+import { motion, SVGMotionProps } from "framer-motion";
 
-const Path = (props) => (
+const Path = (props: SVGMotionProps<SVGPathElement>) => (
   <motion.path
     strokeWidth="3"
     stroke="currentColor"
@@ -16,41 +16,32 @@ type HamIconProps = {
 };
 
 export const HamIcon = ({ toggle, open }: HamIconProps) => (
-  <IconButton
-    style={{
-      width: "auto",
-      height: "auto",
-      fontSize: "12px",
-    }}
-    color="inherit"
-    onClick={toggle}
-  >
+  <IconButton color="inherit" onClick={toggle}>
     <motion.svg
       initial={false}
       animate={open ? "open" : "closed"}
-      width="20px"
+      width="22px"
       height="20px"
       fill="currentColor"
-      viewBox="0 0 20 20"
     >
       <Path
         variants={{
           closed: { d: "M 2 2.5 L 20 2.5" },
-          open: { d: "M 3 16.5 L 17 2.5" },
+          open: { d: "M 3 17 L 17 2.5" },
         }}
       />
       <Path
-        d="M 2 9.5 L 20 9.5"
+        d="M 5 9.5 L 20 9.5"
         variants={{
-          closed: { opacity: 1 },
-          open: { opacity: 0 },
+          closed: { opacity: 1, x: 0 },
+          open: { opacity: 0, x: 100 },
         }}
-        transition={{ duration: 0.1 }}
+        transition={{ type: "tween", duration: 0.2 }}
       />
       <Path
         variants={{
-          closed: { d: "M 2 16.5 L 20 16.5" },
-          open: { d: "M 3 2.5 L 17 16.5" },
+          closed: { d: "M 2 17 L 20 17" },
+          open: { d: "M 3 2.5 L 17 17" },
         }}
       />
     </motion.svg>

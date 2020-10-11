@@ -14,10 +14,10 @@ const Content = styled.section`
   height: auto;
   width: auto;
   display: inline-block;
-  padding: 50px;
+  padding: 130px 50px 50px 50px; /* 130px is with navbar */
   background-color: ${({ theme }) => theme.colors.grey2};
   @media screen and (max-width: ${media.mediumSmall}) {
-    padding: 50px 20px;
+    padding: 130px 20px 50px 20px;
   }
 `;
 

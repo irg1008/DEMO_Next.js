@@ -4,8 +4,9 @@ import { media } from "styles";
 const LinkList = styled.ul`
   display: flex;
   justify-content: space-around;
+  align-items: center;
   width: auto;
-  min-width: 10em;
+  min-width: 15em;
   text-transform: uppercase;
   @media screen and (max-width: ${media.medium}) {
     flex-direction: column;
@@ -16,6 +17,8 @@ const LinkList = styled.ul`
 
 const LinkElement = styled.li`
   margin: 0 5px;
+  display: flex;
+  align-items: center;
 `;
 
 const Styled = {

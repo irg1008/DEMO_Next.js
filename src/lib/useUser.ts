@@ -1,24 +1,14 @@
-import { useEffect } from "react";
 import Router from "next/router";
 import useSWR from "swr";
+import { UserType } from "models/User";
 
-type useUserProps = {
-  redirectTo?: string;
-  redirectIfNoUser?: boolean;
-};
+const useUser = () => {
+  const { data, mutate } = useSWR("/api/auth/user");
 
-const useUser = ({ redirectTo, redirectIfNoUser }: useUserProps) => {
-  const { data: user, mutate: mutateUser } = useSWR("/api/auth/user");
+  const user: UserType = data;
+  const setUser = (user: UserType) => mutate(user);
 
-  useEffect(() => {
-    if (
-      (user && redirectTo && !redirectIfNoUser) ||
-      (!user && redirectTo && redirectIfNoUser)
-    )
-      Router.push(redirectTo);
-  }, [user, redirectTo]);
-
-  return { user, mutateUser };
+  return { user, setUser };
 };
 
 export default useUser;

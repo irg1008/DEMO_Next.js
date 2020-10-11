@@ -7,6 +7,7 @@ const withSession = (handler: Handler) =>
     cookieOptions: {
       secure: process.env.NODE_ENV === "production",
     },
+    ttl: 86400, // User session logs out automatically after 1 day = 86400 seconds.
   });
 
 export default withSession;

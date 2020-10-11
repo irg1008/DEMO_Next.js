@@ -9,6 +9,8 @@ import GoogleButton from "components/atoms/GoogleButton";
 import validations from "util/validations";
 import codes from "util/errorCodes";
 import useUser from "lib/useUser";
+import ForbiddenAuth from "components/templates/ForbiddenAuth";
+import Router from "routes";
 
 interface FormValues {
   email: string;
@@ -39,7 +41,7 @@ const InnerForm = (props: FormikProps<FormValues>) => (
 );
 
 const SignIn = () => {
-  const { mutateUser } = useUser({ redirectTo: "/" });
+  const { setUser } = useUser();
 
   const handleSubmit = async (
     values: FormValues,
@@ -49,6 +51,7 @@ const SignIn = () => {
     const res = await signIn(values.email, values.password);
 
     if (!res.success) {
+      console.error(res.code);
       switch (res.code) {
         case codes.signin.emailNotVerfied: {
           setFieldError(
@@ -58,23 +61,41 @@ const SignIn = () => {
           break;
         }
         case codes.signin.passwordIncorrect: {
-          setFieldError("password", "Te password inserted is incorrect");
+          setFieldError("password", "The password inserted is incorrect");
           break;
         }
         case codes.signin.userNotFound: {
-          setFieldError("email", "The user does not exist");
+          setFieldError("email", "The user does not exist. Sign Up");
+          break;
+        }
+        case codes.signin.signedWithGoogle: {
+          setFieldError(
+            "email",
+            "Please sign with Google and then create a password in the profile page"
+          );
+          break;
+        }
+        case codes.signin.signedWithoutPassword: {
+          setFieldError(
+            "email",
+            "Please, sign with email and then create a password in the profile page"
+          );
           break;
         }
         default: {
-          setFieldError("email", `Sorry, this error ocurred: "${res.error}"`);
+          setFieldError(
+            "email",
+            "Sorry, an unknown error ocurred, try again later"
+          );
+          console.error(res);
           break;
         }
       }
+      setSubmitting(false);
     } else {
-      await mutateUser(res.user);
+      await setUser(res.user);
+      Router.push("/");
     }
-
-    setSubmitting(false);
   };
 
   const SigninForm = withFormik<FormProps, FormValues>({
@@ -84,12 +105,12 @@ const SignIn = () => {
   })(InnerForm);
 
   return (
-    <>
+    <ForbiddenAuth hideWhen="signed">
       <Head>
         <title>{"Silk&Rock - Sign In"}</title>
       </Head>
       <SigninForm />
-    </>
+    </ForbiddenAuth>
   );
 };
 export default SignIn;

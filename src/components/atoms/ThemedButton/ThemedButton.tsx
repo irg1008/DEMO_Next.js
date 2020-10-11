@@ -2,17 +2,16 @@ import Styled from "./ThemedButton.styles";
 import WaveLoader from "components/atoms/WaveLoader";
 
 type ButtonProps = {
-  disabled: boolean;
+  disabled?: boolean;
   text: string;
   type: "submit" | "reset" | "button";
+  color?: string;
 };
 
-const Button = ({ disabled, text, type }: ButtonProps) => (
-  <Styled.ButtonWrapper>
-    <Styled.Button {...{ disabled, type }}>
-      {disabled ? <WaveLoader /> : text}
-    </Styled.Button>
-  </Styled.ButtonWrapper>
+const Button = ({ disabled, text, type, color }: ButtonProps) => (
+  <Styled.Button {...{ disabled, type, color }}>
+    {disabled ? <WaveLoader /> : text}
+  </Styled.Button>
 );
 
 export default Button;

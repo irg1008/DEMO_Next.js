@@ -2,8 +2,6 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import themes, { defaultTheme } from "styles/themes";
 import { ThemeProvider } from "styled-components";
 import Global from "styles/global";
-// import axios from "axios";
-import isEqual from "lodash.isequal";
 
 type Context = {
   toggleTheme: () => void;
@@ -20,33 +18,15 @@ const useThemeStore = () => useContext(ThemeStoreContext);
 const ThemeStoreProvider: React.FC = ({ children }) => {
   const [theme, setTheme] = useState(defaultTheme);
 
-  // const themeAPI = "/api/theme";
-
-  // On load => Get theme from api.
+  // On load => Get theme from local.
   useEffect(() => {
-    const fetchTheme = async () => {
-      //const response = await axios.get(themeAPI);
-      //const responseTheme = response.data.theme;
-
-      const responseTheme = JSON.parse(localStorage.getItem("theme"));
-
-      !isEqual(responseTheme, theme) &&
-        setTheme(
-          isEqual(responseTheme, themes.light) ? themes.light : themes.dark
-        );
-    };
-
-    fetchTheme();
+    setTheme(
+      localStorage.getItem("theme") === "light" ? themes.light : themes.dark
+    );
   }, []);
 
   useEffect(() => {
-    const updateTheme = async () => {
-      // await axios.post(themeAPI, { theme });
-
-      localStorage.setItem("theme", JSON.stringify(theme));
-    };
-
-    updateTheme();
+    localStorage.setItem("theme", theme === themes.light ? "light" : "dark");
   }, [theme]);
 
   const toggleTheme = () =>

@@ -18,6 +18,7 @@ const confirmPassword = Yup.string()
 const username = Yup.string()
   .min(3, "Too Short!")
   .max(50, "Too Long!")
+  .matches(/^[a-zA-Z0-9À-ÿ ]*$/, "Username contains only letters, numbers and spaces")
   .required("Required");
 
 export default { email, confirmPassword, username, password };

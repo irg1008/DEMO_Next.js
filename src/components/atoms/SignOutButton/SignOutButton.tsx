@@ -2,11 +2,11 @@ import { signOut } from "middlewares/auth";
 import useUser from "lib/useUser";
 
 const SignOutButton = () => {
-  const { mutateUser } = useUser({});
+  const { setUser } = useUser();
 
   const signOutOnClick = async () => {
     const res = await signOut();
-    mutateUser(res.user);
+    setUser(res.user);
   };
 
   return <button onClick={signOutOnClick}>Sign Out</button>;

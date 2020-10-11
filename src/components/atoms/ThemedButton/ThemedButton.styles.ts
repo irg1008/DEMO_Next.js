@@ -1,25 +1,18 @@
 import styled from "styled-components";
+import colors from "styles/colors";
 
-const ButtonWrapper = styled.div`
+const Button = styled.button<{ color?: string }>`
   margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  overflow: hidden;
-  position: relative;
-`;
-
-const Button = styled.button`
-  min-width: 150px;
   min-height: 40px;
   color: ${({ theme }) => theme.colors.light};
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme, color }) => color || theme.colors.main};
   &:hover {
-    background: ${({ theme }) => theme.colors.primaryLight};
+    background-color: ${({ theme, color }) =>
+      colors.getBrightened(color || theme.colors.main)};
   }
 `;
 
 const Styled = {
-  ButtonWrapper,
   Button,
 };
 

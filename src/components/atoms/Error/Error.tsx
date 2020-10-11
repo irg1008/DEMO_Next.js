@@ -6,6 +6,6 @@ type ErrorProps = {
 };
 
 const Error = ({ displayError, error }: ErrorProps) =>
-  displayError ? <Styled.Error>{error}</Styled.Error> : null;
+  displayError && <Styled.Error>{error}</Styled.Error>;
 
 export default Error;

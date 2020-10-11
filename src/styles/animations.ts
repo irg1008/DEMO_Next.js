@@ -5,6 +5,13 @@ const fallDown = keyframes`
         transform: translateY(-100%);
         opacity: 0;
     }
+    60%: {
+        transform: translateY(0);
+        opacity: 0;
+    }
+    70% {
+        transform: translateY(10%)
+    }
     100% {
         transform: translateY(0);
         opacity: 1;
@@ -21,7 +28,26 @@ const fallFarRight = keyframes`
         opacity: 1;
     }
 `;
+
+const outLeft = keyframes`
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+`;
+
 const fadeOut = keyframes`
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+`;
+
+const fadeIn = keyframes`
     0% {
         opacity: 0;
     }
@@ -68,6 +94,8 @@ const animations = {
   fallFarRight,
   scaleDown,
   fadeOut,
+  fadeIn,
+  outLeft,
 };
 
 export default animations;

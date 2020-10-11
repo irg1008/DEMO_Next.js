@@ -1,5 +1,17 @@
 import mongoose from "mongoose";
 
+const signMethods = ["Google", "Password", "Passwordless"] as const;
+type SignMethods = typeof signMethods[number];
+
+export type UserType = {
+  _id: string;
+  username: string;
+  email: string;
+  password?: string; // Optional, cause on fetch we dont recieve pass.
+  verified: boolean;
+  signMethods: SignMethods[];
+};
+
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -12,10 +24,19 @@ const UserSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: [true, "Password required"],
   },
   verified: {
     type: Boolean,
+    required: [true, "Verified status is required"],
+  },
+  signMethods: {
+    type: [
+      {
+        type: String,
+        enum: signMethods,
+      },
+    ],
+    required: [true, "At least one sign methods must be provided"],
   },
 });
 

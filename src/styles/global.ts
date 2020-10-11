@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import colors from "./colors";
 
 const Global = createGlobalStyle`
 	* {
@@ -39,6 +40,9 @@ const Global = createGlobalStyle`
 			-webkit-text-fill-color: ${({ theme }) => theme.colors.dark};
   		box-shadow: 0 0 0 2rem ${({ theme }) => theme.colors.grey1} inset;
 		}
+		&::-ms-reveal,::-ms-clear{
+			display: none;
+		} 
 	}
 
 	label {
@@ -67,7 +71,7 @@ const Global = createGlobalStyle`
 		&:disabled, &:disabled:hover {
 				background-color: ${({ theme }) => theme.colors.grey2};
 				cursor: default;
-				color: ${({ theme }) => theme.colors.darkOpacity};
+				color: ${({ theme }) => colors.getTransparented(theme.colors.dark)};
 		}
 	}
 
@@ -95,9 +99,16 @@ const Global = createGlobalStyle`
 		font-weight: lighter;
 	}
 
+	h2 {
+		font-size: 20pt;
+		margin: 0%;
+		text-transform: uppercase;
+		font-weight: lighter;
+	}
+
 
 	::selection {
-		background-color: ${(props) => props.theme.colors.primary};
+		background-color: ${(props) => props.theme.colors.main};
 		color: ${(props) => props.theme.colors.light};
 	}
 `;

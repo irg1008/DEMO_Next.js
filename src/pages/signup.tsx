@@ -9,6 +9,9 @@ import validations from "util/validations";
 import { signUp } from "middlewares/auth";
 import codes from "util/errorCodes";
 import useUser from "lib/useUser";
+import Router from "routes";
+import React from "react";
+import ForbiddenAuth from "components/templates/ForbiddenAuth";
 
 interface FormValues {
   username: string;
@@ -48,8 +51,6 @@ const InnerForm = (props: FormikProps<FormValues>) => (
 );
 
 const SignUp = () => {
-  useUser({ redirectTo: "/" });
-
   const handleSubmit = async (
     values: FormValues,
     { setSubmitting, setFieldError }: FormikBag<FormProps, FormValues>
@@ -67,13 +68,18 @@ const SignUp = () => {
           break;
         }
         default: {
-          setFieldError("email", `Sorry, this error ocurred: "${res.error}"`);
+          setFieldError(
+            "email",
+            "Sorry, an unknown error ocurred, try again later"
+          );
+          console.error(res);
           break;
         }
       }
+      setSubmitting(false);
+    } else {
+      Router.push("/signin");
     }
-
-    setSubmitting(false);
   };
 
   const SigUpForm = withFormik<FormProps, FormValues>({
@@ -83,12 +89,12 @@ const SignUp = () => {
   })(InnerForm);
 
   return (
-    <>
+    <ForbiddenAuth hideWhen="signed">
       <Head>
         <title>{"Silk&Rock - Sign Up"}</title>
       </Head>
       <SigUpForm />
-    </>
+    </ForbiddenAuth>
   );
 };
 

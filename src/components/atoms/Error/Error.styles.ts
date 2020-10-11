@@ -6,7 +6,7 @@ const Error = styled.div`
   height: auto;
   min-height: 5px;
   color: ${colors.fieldColors.errorRed};
-  animation: ${animations.fallDown} 0.1s ease;
+  animation: ${animations.fallDown} 0.2s cubic-bezier(0.15, 1.62, 0.6, 1.01);
 `;
 
 const Styled = {

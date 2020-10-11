@@ -28,7 +28,7 @@ const Info = styled.h2`
   text-transform: capitalize;
   padding: 5px 10px;
   color: ${({ theme }) => theme.colors.light};
-  background-color: ${({ theme }) => theme.colors.primary};
+  background-color: ${({ theme }) => theme.colors.main};
 `;
 
 const Styled = {

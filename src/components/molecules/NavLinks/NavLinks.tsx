@@ -1,31 +1,31 @@
 import Styled from "./NavLinks.styles";
-import Link from "components/atoms/Link";
+import { ActiveLink as Link } from "components/atoms/Link";
 import useUser from "lib/useUser";
-import routes from "routes";
 import SignOutButton from "components/atoms/SignOutButton";
+import Color from "color";
 
 type NavLinksProps = {
-  color?: string;
+  color?: Color;
   onClick?: () => void;
 };
 
 const NavLinks = ({ color, onClick }: NavLinksProps) => {
-  const { user } = useUser({});
+  const { user } = useUser();
 
   return (
-    <Styled.LinkList {...{ onClick }}>
-      <Styled.LinkElement>
-        <Link href={routes.home} text="Home" {...{ color }} />
+    <Styled.LinkList>
+      <Styled.LinkElement {...{ onClick }}>
+        <Link href="/" text="Home" {...{ color }} />
       </Styled.LinkElement>
       {user ? (
         <SignOutButton />
       ) : (
         <>
-          <Styled.LinkElement>
-            <Link href={routes.signin} text="Log In" {...{ color }} />
+          <Styled.LinkElement {...{ onClick }}>
+            <Link href="/signin" text="Log In" {...{ color }} />
           </Styled.LinkElement>
-          <Styled.LinkElement>
-            <Link href={routes.signup} text="Sign Up" {...{ color }} />
+          <Styled.LinkElement {...{ onClick }}>
+            <Link href="/signup" text="Sign Up" {...{ color }} />
           </Styled.LinkElement>
         </>
       )}

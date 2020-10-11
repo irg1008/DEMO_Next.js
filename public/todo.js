@@ -1,12 +1,10 @@
-// GENERAL TODOs
+// TODO: (Aditional) Use a loading screen.
+// TODO: (Aditional) Set better way to hide and show navbar on certain routes.
+// TODO: (Aditional) Use serif font.
+// TODO: Change load on submit to one prettier and more functional.
 
-// TODO: Use a loading screen.
-// TODO: Set better way to hide and show navbar on certain routes.
-// TODO: Set theme for every user on a secure basis on database.
-// TODO: Rearrange components.
-
-// TODO: Keep doing and making all the auth with mongoDB, after that make google provider and passwordless(magic?)
-// TODO: Do email verification on sign up and make session and all the stuff.
-// TODO: Arreglar el error en el login.
-
-// TODO: Ver si la web es facil de scrapear, es decir, si lo genera de forma dinamica o se pued ever el html al cargar.
+// TODO: (Optional) Rearrange components.
+// TODO: 1.- Limpiar REST API y todo lo demas, asi como ordenar, limpiar codigo sucio y usar buenas prácticas.
+// TODO: 2.- Hacer verify con token y reset password.
+// TODO: 3.- Information model or floating for information as email sent successfully or pop up closed by user, etc
+// TODO: (Optional) Do passwordless auth.

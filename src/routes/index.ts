@@ -1,3 +1,4 @@
-import routes from "./routes";
+import Router, { Routes } from "./routes";
 
-export default routes;
+export type { Routes };
+export default Router;

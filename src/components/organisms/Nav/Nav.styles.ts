@@ -1,18 +1,16 @@
 import styled, { css } from "styled-components";
-import { constants, shadows, media } from "styles";
+import { constants, shadows, media, colors } from "styles";
 
-const NavWrapper = styled.nav`
-  margin-bottom: ${constants.navHeight};
-`;
-
-const Nav = styled.div<{ open: boolean }>`
+const Nav = styled.div<{ open: boolean; isOnTop: boolean }>`
   z-index: 2;
   width: 100%;
   min-height: ${constants.navHeight};
   position: fixed;
   color: ${(props) => props.theme.colors.dark};
-  background-color: ${({ open, theme }) =>
-    open ? theme.colors.light : theme.colors.lightOpacity};
+  background-color: ${({ open, theme, isOnTop }) =>
+    open || isOnTop
+      ? theme.colors.light
+      : colors.getTransparented(theme.colors.light)};
   display: flex;
   align-items: center;
   padding: 0 30px;
@@ -30,7 +28,8 @@ const NavBG = styled.div<{ open: boolean }>`
   position: fixed;
   height: 100vh;
   width: 100vw;
-  background-color: ${(props) => props.theme.colors.grey2Opacity};
+  background-color: ${({ theme }) =>
+    colors.getTransparented(theme.colors.grey2)};
   backdrop-filter: blur(0.5rem);
   opacity: 1;
   display: none;
@@ -97,7 +96,6 @@ const NavHam = styled.div`
 
 const Styled = {
   Nav,
-  NavWrapper,
   NavLogo,
   NavLeft,
   NavRight,

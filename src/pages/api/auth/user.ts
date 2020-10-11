@@ -1,24 +1,18 @@
 import withSession from "lib/session";
 import { NextApiRequest, NextApiResponse } from "next";
+import { UserType } from "models/User";
 
 const user = withSession(
   async (req: NextApiRequest & { session: any }, res: NextApiResponse) => {
     const { method } = req;
-    const user = req.session.get("user") || null;
+    const user: UserType = req.session.get("user") || null;
 
     switch (method) {
       case "GET":
-        try {
-          res.status(200).json(user);
-        } catch (error) {
-          res.status(400).json({ success: false, error: error.message });
-        } finally {
-          break;
-        }
+        return res.status(200).json(user);
       default:
         res.setHeader("Allow", ["GET"]);
-        res.status(405).end(`Method ${method} Not Allowed`);
-        break;
+        return res.status(405).end(`Method ${method} Not Allowed`);
     }
   }
 );

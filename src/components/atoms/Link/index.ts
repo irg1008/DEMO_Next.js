@@ -1,5 +1,4 @@
-import Link from "./Link";
-import type { LinkProps } from "./Link";
+import Link, { ActiveLink } from "./Link";
 
+export { ActiveLink };
 export default Link;
-export type { LinkProps };
